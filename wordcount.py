@@ -1,4 +1,6 @@
 # put your code here.
+import sys
+
 def count_words(filename):
     the_file = open(filename)
 
@@ -18,7 +20,19 @@ def count_words(filename):
 
     the_file.close()
 
-    for word, count in word_counts.iteritems():
-        print word, count
+    word_counts = word_counts.items()
+    
+    count = 0
+    for tpl in word_counts:
+        word_counts[count] = list(tpl)
+        word_counts[count].reverse()
+        count += 1
 
-count_words('test.txt')
+    word_counts.sort()
+    word_counts.reverse()
+
+    for count, word in word_counts:
+        print "{}: {}".format(word, count)
+
+count_words(sys.argv[1])
+
